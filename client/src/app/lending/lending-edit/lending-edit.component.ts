@@ -62,22 +62,24 @@ export class LendingEditComponent implements OnInit{
         }
       })
     }else {
-      this.errorMensage = 'Máximo tiempo son 15 días';
+      this.errorMensage = 'Máximo tiempo son 14 días';
       this.displayError = true;
     }
       
   }
   checkDates():boolean {
-    let dateinit = new Date(this.getMyDate(this.filterDateFirst))
-    let dateend = new Date(this.getMyDate(this.filterDateLast))
+    let dateinit = new Date(this.filterDateFirst)
+    let dateend = new Date(this.filterDateLast)
     let dif = dateend.getTime() - dateinit.getTime();
+    
     let MIL_TO_DAYS = 1000*60*60*24;
     let MAX_DAYS = 14;
-    return ( dif/MIL_TO_DAYS + 1 <= MAX_DAYS && dif/MIL_TO_DAYS + 1 > 0) ? true : false;
+    console.log(dif/MIL_TO_DAYS + 1)
+    return ( (dif/MIL_TO_DAYS) + 1 <= MAX_DAYS && dif/MIL_TO_DAYS + 1 > 0) ? true : false;
   }
   getMyDate(filterDate: string): string {
     let date = new Date(filterDate)
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
   }
 
 }

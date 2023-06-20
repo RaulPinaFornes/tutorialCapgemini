@@ -87,9 +87,7 @@ export class LendingListComponent implements OnInit{
 
   getMyDate(filterDate: string): string {
     let date = new Date(filterDate)
-    console.log(filterDate)
-    console.log(date)
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
   }
   onCleanFilters(): void {
     this.filterClient = null;
