@@ -48,8 +48,8 @@ export class LendingEditComponent implements OnInit{
         id: null,
         game: this.filterTitle,
         client: this.filterClient,
-        dateinit: this.getMyDate(this.filterDateFirst),
-        dateend: this.getMyDate(this.filterDateLast)
+        dateinit: new Date(this.filterDateFirst),
+        dateend: new Date(this.filterDateLast)
       }
       this.displayError = false;
       this.lendingService.saveLending(lending).subscribe(result => {
@@ -74,12 +74,7 @@ export class LendingEditComponent implements OnInit{
     
     let MIL_TO_DAYS = 1000*60*60*24;
     let MAX_DAYS = 14;
-    console.log(dif/MIL_TO_DAYS + 1)
     return ( (dif/MIL_TO_DAYS) + 1 <= MAX_DAYS && dif/MIL_TO_DAYS + 1 > 0) ? true : false;
-  }
-  getMyDate(filterDate: string): string {
-    let date = new Date(filterDate)
-    return `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
   }
 
 }

@@ -78,8 +78,8 @@ public class LendingServiceImpl implements LendingService {
 
         List<Lending> resultsG = this.lendingRepository.findAll(specG);
         if (resultsG.size() > 0) {
-            response.setError("Juego esta ocupado entre: ".concat(resultsG.get(0).getDateinit()).concat(" y ")
-                    .concat(resultsG.get(0).getDateend()));
+            response.setError("Juego esta ocupado entre: ".concat(resultsG.get(0).getDateinit().toString())
+                    .concat(" y ").concat(resultsG.get(0).getDateend().toString()));
             return response;
 
         }

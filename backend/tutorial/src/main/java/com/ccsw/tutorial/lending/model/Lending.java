@@ -1,5 +1,7 @@
 package com.ccsw.tutorial.lending.model;
 
+import java.time.LocalDate;
+
 import com.ccsw.tutorial.client.model.Client;
 import com.ccsw.tutorial.game.model.Game;
 
@@ -30,10 +32,10 @@ public class Lending {
     private Client client;
 
     @Column(name = "dateinit", nullable = false)
-    private String dateinit;
+    private LocalDate dateinit;
 
     @Column(name = "dateend", nullable = false)
-    private String dateend;
+    private LocalDate dateend;
 
     public Long getId() {
         return id;
@@ -59,19 +61,19 @@ public class Lending {
         this.client = client;
     }
 
-    public String getDateinit() {
+    public LocalDate getDateinit() {
         return dateinit;
     }
 
-    public void setDateinit(String dateinit) {
+    public void setDateinit(LocalDate dateinit) {
         this.dateinit = dateinit;
     }
 
-    public String getDateend() {
+    public LocalDate getDateend() {
         return dateend;
     }
 
-    public void setDateend(String dateend) {
+    public void setDateend(LocalDate dateend) {
         this.dateend = dateend;
     }
 

@@ -3,6 +3,7 @@ package com.ccsw.tutorial.lending;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -168,8 +169,8 @@ public class LendingIT {
 
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit("2023-12-12");
-        dto.setDateend("2023-12-14");
+        dto.setDateinit(LocalDate.of(2023, 12, 12));
+        dto.setDateend(LocalDate.of(2023, 12, 14));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
@@ -196,13 +197,13 @@ public class LendingIT {
         game.setId(1L);
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit("2025-12-11");
-        dto.setDateend("2025-12-15");
+        dto.setDateinit(LocalDate.of(2025, 12, 11));
+        dto.setDateend(LocalDate.of(2025, 12, 15));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
-        dto.setDateinit("2025-12-11");
-        dto.setDateend("2025-12-15");
+        dto.setDateinit(LocalDate.of(2025, 12, 11));
+        dto.setDateend(LocalDate.of(2025, 12, 15));
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
         LendingSearchDto searchDto = new LendingSearchDto();
@@ -229,18 +230,18 @@ public class LendingIT {
         game.setId(1L);
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit("2025-12-11");
-        dto.setDateend("2025-12-15");
+        dto.setDateinit(LocalDate.of(2025, 12, 11));
+        dto.setDateend(LocalDate.of(2025, 12, 15));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
         game.setId(2L);
-        dto.setDateinit("2025-12-11");
-        dto.setDateend("2025-12-15");
+        dto.setDateinit(LocalDate.of(2025, 12, 11));
+        dto.setDateend(LocalDate.of(2025, 12, 15));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
         game.setId(3L);
-        dto.setDateinit("2025-12-11");
-        dto.setDateend("2025-12-15");
+        dto.setDateinit(LocalDate.of(2025, 12, 11));
+        dto.setDateend(LocalDate.of(2025, 12, 15));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 

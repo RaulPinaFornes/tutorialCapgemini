@@ -1,8 +1,6 @@
 package com.ccsw.tutorial.lending;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -30,33 +28,19 @@ public class LendingSpecification implements Specification<Lending> {
     public Predicate toPredicate(Root<Lending> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         if (criteria.getValue() != null) {
             Path<String> path = getPath(root);
-            String pattern = "yyyy-MM-dd";
-            SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
 
             if (criteria.getOperation().equalsIgnoreCase(">")) {
 
-                Date parsed = null;
-                try {
-                    parsed = dateFormat.parse((String) criteria.getValue());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                return builder.greaterThanOrEqualTo(path.as(Date.class), parsed);
+                return builder.greaterThanOrEqualTo(path.as(LocalDate.class), (LocalDate) criteria.getValue());
 
             } else if (criteria.getOperation().equalsIgnoreCase("<")) {
-                Date parsed = null;
-                try {
-                    parsed = dateFormat.parse((String) criteria.getValue());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return builder.lessThanOrEqualTo(path.as(Date.class), parsed);
+
+                return builder.lessThanOrEqualTo(path.as(LocalDate.class), (LocalDate) criteria.getValue());
             } else if (criteria.getOperation().equalsIgnoreCase(":")) {
                 return builder.equal(path, criteria.getValue());
             } else if (criteria.getOperation().equalsIgnoreCase("<>")) {
 
-                return builder.between(path, ((LendingDto) criteria.getValue()).getDateinit(),
+                return builder.between(path.as(LocalDate.class), ((LendingDto) criteria.getValue()).getDateinit(),
                         ((LendingDto) criteria.getValue()).getDateend());
             }
         }

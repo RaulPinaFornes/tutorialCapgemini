@@ -6,6 +6,6 @@ export class Lending {
     id: number;
     game: Game;
     client: Client;
-    dateinit: string;
-    dateend: string;
+    dateinit: Date;
+    dateend: Date;
 }
