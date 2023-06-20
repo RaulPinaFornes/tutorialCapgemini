@@ -1,6 +1,6 @@
 package com.ccsw.tutorial.lending;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -31,16 +31,22 @@ public class LendingSpecification implements Specification<Lending> {
 
             if (criteria.getOperation().equalsIgnoreCase(">")) {
 
-                return builder.greaterThanOrEqualTo(path.as(LocalDate.class), (LocalDate) criteria.getValue());
+                return builder.greaterThan(path.as(Date.class), (Date) criteria.getValue());
 
+            } else if (criteria.getOperation().equalsIgnoreCase(">=")) {
+
+                return builder.greaterThanOrEqualTo(path.as(Date.class), (Date) criteria.getValue());
+            } else if (criteria.getOperation().equalsIgnoreCase("<=")) {
+
+                return builder.lessThanOrEqualTo(path.as(Date.class), (Date) criteria.getValue());
             } else if (criteria.getOperation().equalsIgnoreCase("<")) {
 
-                return builder.lessThanOrEqualTo(path.as(LocalDate.class), (LocalDate) criteria.getValue());
+                return builder.lessThan(path.as(Date.class), (Date) criteria.getValue());
             } else if (criteria.getOperation().equalsIgnoreCase(":")) {
                 return builder.equal(path, criteria.getValue());
             } else if (criteria.getOperation().equalsIgnoreCase("<>")) {
 
-                return builder.between(path.as(LocalDate.class), ((LendingDto) criteria.getValue()).getDateinit(),
+                return builder.between(path.as(Date.class), ((LendingDto) criteria.getValue()).getDateinit(),
                         ((LendingDto) criteria.getValue()).getDateend());
             }
         }

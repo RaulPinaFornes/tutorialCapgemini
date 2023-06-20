@@ -1,14 +1,16 @@
 package com.ccsw.tutorial.lending.model;
 
+import java.util.Date;
+
 public class LendingFilterDto {
 
     private Long clientId;
 
-    private String date;
+    private Date date;
 
     private Long titleId;
 
-    public LendingFilterDto(Long clientId, String date, Long titleId) {
+    public LendingFilterDto(Long clientId, Date date, Long titleId) {
         this.clientId = clientId;
         this.date = date;
         this.titleId = titleId;
@@ -22,11 +24,11 @@ public class LendingFilterDto {
         this.clientId = clientId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

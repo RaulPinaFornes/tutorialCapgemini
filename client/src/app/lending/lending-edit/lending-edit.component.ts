@@ -71,7 +71,8 @@ export class LendingEditComponent implements OnInit{
     let dateinit = new Date(this.filterDateFirst)
     let dateend = new Date(this.filterDateLast)
     let dif = dateend.getTime() - dateinit.getTime();
-    
+    console.log(this.filterDateFirst)
+    console.log(this.filterDateLast)
     let MIL_TO_DAYS = 1000*60*60*24;
     let MAX_DAYS = 14;
     return ( (dif/MIL_TO_DAYS) + 1 <= MAX_DAYS && dif/MIL_TO_DAYS + 1 > 0) ? true : false;

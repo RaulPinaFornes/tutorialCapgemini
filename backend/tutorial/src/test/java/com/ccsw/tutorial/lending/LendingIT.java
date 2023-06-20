@@ -3,7 +3,7 @@ package com.ccsw.tutorial.lending;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -36,11 +36,14 @@ public class LendingIT {
     public static final int LENDING_ID_DELETE = 1;
 
     public static final Long LENDING_FILTER_TITLE = 1L;
-    public static final String LENDING_FILTER_DATE = "2023-06-15";
+    @SuppressWarnings("deprecation")
+    public static final Date LENDING_FILTER_DATE = new Date("2023-06-15");
     public static final Long LENDING_FILTER_CLIENT = 1L;
 
-    public static final String LENDING_FILTER_DATE_FIRST_DAY = "2023-06-15";
-    public static final String LENDING_FILTER_DATE_LAST_DAY = "2023-06-18";
+    @SuppressWarnings("deprecation")
+    public static final Date LENDING_FILTER_DATE_FIRST_DAY = new Date("2023-06-15");
+    @SuppressWarnings("deprecation")
+    public static final Date LENDING_FILTER_DATE_LAST_DAY = new Date("2023-06-18");
     @LocalServerPort
     private int port;
 
@@ -157,6 +160,7 @@ public class LendingIT {
         assertEquals(1, response.getBody().getContent().size());
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void saveShouldCreateNewLending() {
         long newMaxSize = LENDING_MAX_SIZE + 1L;
@@ -169,8 +173,8 @@ public class LendingIT {
 
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit(LocalDate.of(2023, 12, 12));
-        dto.setDateend(LocalDate.of(2023, 12, 14));
+        dto.setDateinit(new Date("2023-12-12"));
+        dto.setDateend(new Date("2023-12-14"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
@@ -186,6 +190,7 @@ public class LendingIT {
 
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void saveWithGameAllreadyLendShouldNotCreateNewLending() {
         long newMaxSize = LENDING_MAX_SIZE + 1L;
@@ -197,13 +202,14 @@ public class LendingIT {
         game.setId(1L);
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit(LocalDate.of(2025, 12, 11));
-        dto.setDateend(LocalDate.of(2025, 12, 15));
+
+        dto.setDateinit(new Date("2025-12-12"));
+        dto.setDateend(new Date("2025-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
-        dto.setDateinit(LocalDate.of(2025, 12, 11));
-        dto.setDateend(LocalDate.of(2025, 12, 15));
+        dto.setDateinit(new Date("2025-12-12"));
+        dto.setDateend(new Date("2025-12-15"));
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
         LendingSearchDto searchDto = new LendingSearchDto();
@@ -218,6 +224,7 @@ public class LendingIT {
 
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void saveWithClientWithTwoGamesShouldNotCreateNewLending() {
         long newMaxSize = LENDING_MAX_SIZE + 2L;
@@ -230,18 +237,18 @@ public class LendingIT {
         game.setId(1L);
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit(LocalDate.of(2025, 12, 11));
-        dto.setDateend(LocalDate.of(2025, 12, 15));
+        dto.setDateinit(new Date("2025-12-12"));
+        dto.setDateend(new Date("2025-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
         game.setId(2L);
-        dto.setDateinit(LocalDate.of(2025, 12, 11));
-        dto.setDateend(LocalDate.of(2025, 12, 15));
+        dto.setDateinit(new Date("2025-12-12"));
+        dto.setDateend(new Date("2025-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
         game.setId(3L);
-        dto.setDateinit(LocalDate.of(2025, 12, 11));
-        dto.setDateend(LocalDate.of(2025, 12, 15));
+        dto.setDateinit(new Date("2025-12-12"));
+        dto.setDateend(new Date("2025-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 

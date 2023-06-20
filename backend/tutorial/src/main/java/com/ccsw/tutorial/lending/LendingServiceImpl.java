@@ -1,5 +1,8 @@
 package com.ccsw.tutorial.lending;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -34,10 +37,10 @@ public class LendingServiceImpl implements LendingService {
     public Page<Lending> findPage(LendingSearchDto dto) {
 
         LendingSpecification dateLow = new LendingSpecification(
-                new SearchCriteria("dateend", ">", dto.getLendingFilter().getDate()));
+                new SearchCriteria("dateend", ">=", dto.getLendingFilter().getDate()));
 
         LendingSpecification dateHigh = new LendingSpecification(
-                new SearchCriteria("dateinit", "<", dto.getLendingFilter().getDate()));
+                new SearchCriteria("dateinit", "<=", dto.getLendingFilter().getDate()));
 
         LendingSpecification client = new LendingSpecification(
                 new SearchCriteria("client.id", ":", dto.getLendingFilter().getClientId()));
@@ -78,8 +81,8 @@ public class LendingServiceImpl implements LendingService {
 
         List<Lending> resultsG = this.lendingRepository.findAll(specG);
         if (resultsG.size() > 0) {
-            response.setError("Juego esta ocupado entre: ".concat(resultsG.get(0).getDateinit().toString())
-                    .concat(" y ").concat(resultsG.get(0).getDateend().toString()));
+            response.setError("Juego esta ocupado entre: ".concat(formatDate(resultsG.get(0).getDateinit()))
+                    .concat(" y ").concat(formatDate(resultsG.get(0).getDateend())));
             return response;
 
         }
@@ -104,10 +107,19 @@ public class LendingServiceImpl implements LendingService {
         return null;
     }
 
+    private String formatDate(Date date) {
+        System.out.println(date);
+        String formater = "";
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        formater = dateFormat.format(date);
+        return formater;
+    }
+
     private String formatReturn(List<Lending> results) {
         String response = " ";
         for (Lending e : results) {
-            response += e.getGame().getTitle() + " " + e.getDateinit() + " y " + e.getDateend() + " ";
+            response += e.getGame().getTitle() + " " + formatDate(e.getDateinit()) + " y " + formatDate(e.getDateend())
+                    + " ";
         }
         return response;
     }

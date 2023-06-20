@@ -72,7 +72,7 @@ export class LendingListComponent implements OnInit{
     
     let filters: LendingFilter = {
       clientId: this.filterClient != null ? this.filterClient.id : null,
-      date: this.filterDate != null ? this.getMyDate(this.filterDate) : null,
+      date: this.filterDate != null ? new Date(this.filterDate) : null,
       titleId: this.filterTitle != null ? this.filterTitle.id : null,
     }
 
