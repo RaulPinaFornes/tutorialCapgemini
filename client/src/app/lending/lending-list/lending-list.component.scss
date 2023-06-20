@@ -1,0 +1,34 @@
+.container{
+    margin: 20px;
+    
+    .filters {
+        display: flex;
+        margin-bottom: 10px;
+        flex-direction: row;
+        mat-form-field {
+            width: 300px;
+
+        }
+
+        .buttons {
+            flex: auto;
+            align-self: center;
+
+            button {
+                margin-left: 15px;
+            }
+        }
+    }
+    .buttons{
+        flex: auto;
+        align-self: center;
+
+        button {
+            margin-left: 15px;
+            text-align: right;
+        }
+    }
+}
+button {
+    width: 125px;
+}

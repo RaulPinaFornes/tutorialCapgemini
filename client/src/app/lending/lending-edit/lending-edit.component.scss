@@ -1,0 +1,45 @@
+.container{
+    min-width: 350px;
+    max-width: 500px;
+    padding: 20px;
+    color: white;
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom:20px;
+
+        span{
+            text-align: center;
+            color: red;
+            animation: error 0.2s ease-out 2;
+        }
+    }
+
+    .buttons {
+      text-align: right;
+
+      button {
+          margin-left: 10px;
+      }
+    }
+
+}
+
+@keyframes error {
+    0% {
+        transform: translateX(0px);
+    }
+    25% {
+        transform: translateX(15px);
+    }
+    50% {
+        transform: translateX(0px);
+    }
+    75% {
+        transform: translateX(-15px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+    
+}

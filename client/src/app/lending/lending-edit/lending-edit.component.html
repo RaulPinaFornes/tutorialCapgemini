@@ -1,0 +1,41 @@
+<div class="container">
+    <h1> Préstamo </h1>
+    <form>
+        <span *ngIf="displayError">{{ errorMensage }} 😢</span>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" name="id" disabled>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Cliente del préstamo</mat-label >
+            <mat-select disableRipple [(ngModel)]="filterClient" name="client">
+                <mat-option color="white" *ngFor="let client of clients" [value]="client">{{client.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Título del juego</mat-label >
+            <mat-select disableRipple [(ngModel)]="filterTitle" name="game">
+                <mat-option color="white" *ngFor="let game of games" [value]="game">{{game.title}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Periodo del préstamos</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Start date" [(ngModel)]="filterDateFirst" name="first">
+              <input matEndDate placeholder="End date" [(ngModel)]="filterDateLast" name="last">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+    </form>
+
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>
+
