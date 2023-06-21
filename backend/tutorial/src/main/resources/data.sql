@@ -23,5 +23,13 @@ INSERT INTO client(name) VALUES ('Client 4');
 INSERT INTO client(name) VALUES ('Client 5');
 
 INSERT INTO lending(game_id, client_id, dateinit, dateend) VALUES (1, 1, '2023-06-15', '2023-06-18');
-INSERT INTO lending(game_id, client_id, dateinit, dateend) VALUES (2, 2, '2023-06-15', '2023-06-15');
-INSERT INTO lending(game_id, client_id, dateinit, dateend) VALUES (2, 2, '2023-07-15', '2023-07-15');
+INSERT INTO lending(game_id, client_id, dateinit, dateend) VALUES (2, 2, '2024-06-15', '2024-06-15');
+INSERT INTO lending(game_id, client_id, dateinit, dateend) VALUES (2, 2, '2025-07-15', '2025-07-15');
+
+
+
+
+
+
+
+
