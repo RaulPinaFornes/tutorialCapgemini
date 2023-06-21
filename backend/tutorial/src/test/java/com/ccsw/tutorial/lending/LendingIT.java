@@ -97,7 +97,7 @@ public class LendingIT {
     }
 
     @Test
-    public void findFirstPageWithThreeSizeWithFilterClientShouldReturnThreeResult() {
+    public void findFirstPageWithThreeSizeWithFilterClientShouldReturnOneResult() {
         LendingSearchDto searchDto = new LendingSearchDto();
         searchDto.setLendingFilter(new LendingFilterDto(LENDING_FILTER_CLIENT, null, null));
         searchDto.setPageable(new PageableRequest(0, PAGE_SIZE));
@@ -204,13 +204,13 @@ public class LendingIT {
         dto.setClient(client);
         dto.setGame(game);
 
-        dto.setDateinit(dateFormat.parse("2025-12-12"));
-        dto.setDateend(dateFormat.parse("2025-12-14"));
+        dto.setDateinit(dateFormat.parse("2027-12-12"));
+        dto.setDateend(dateFormat.parse("2027-12-14"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
-        dto.setDateinit(dateFormat.parse("2025-12-12"));
-        dto.setDateend(dateFormat.parse("2025-12-14"));
+        dto.setDateinit(dateFormat.parse("2027-12-12"));
+        dto.setDateend(dateFormat.parse("2027-12-14"));
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 
         LendingSearchDto searchDto = new LendingSearchDto();
@@ -226,6 +226,33 @@ public class LendingIT {
     }
 
     @Test
+    public void saveWithMoreThanThourteenDaysShouldNotCreateNewLending() throws ParseException {
+        int newPageSize = PAGE_SIZE + 1;
+        GameDto game = new GameDto();
+        LendingDto dto = new LendingDto();
+        ClientDto client = new ClientDto();
+        client.setId(1L);
+        game.setId(1L);
+        dto.setClient(client);
+        dto.setGame(game);
+
+        dto.setDateinit(dateFormat.parse("2027-12-1"));
+        dto.setDateend(dateFormat.parse("2027-12-15"));
+
+        restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
+
+        LendingSearchDto searchDto = new LendingSearchDto();
+        searchDto.setLendingFilter(new LendingFilterDto(null, null, null));
+        searchDto.setPageable(new PageableRequest(0, newPageSize));
+
+        ResponseEntity<ResponsePage<LendingDto>> response = restTemplate.exchange(LOCALHOST + port + SERVICE_PATH,
+                HttpMethod.POST, new HttpEntity<>(searchDto), responseTypePage);
+
+        assertNotNull(response);
+        assertEquals(LENDING_MAX_SIZE, response.getBody().getContent().size());
+    }
+
+    @Test
     public void saveWithClientWithTwoGamesShouldNotCreateNewLending() throws ParseException {
         long newMaxSize = LENDING_MAX_SIZE + 2L;
         int newPageSize = PAGE_SIZE + 2;
@@ -237,18 +264,18 @@ public class LendingIT {
         game.setId(1L);
         dto.setClient(client);
         dto.setGame(game);
-        dto.setDateinit(dateFormat.parse("2023-12-12"));
-        dto.setDateend(dateFormat.parse("2023-12-15"));
+        dto.setDateinit(dateFormat.parse("2022-12-12"));
+        dto.setDateend(dateFormat.parse("2022-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
         game.setId(2L);
-        dto.setDateinit(dateFormat.parse("2023-12-12"));
-        dto.setDateend(dateFormat.parse("2023-12-15"));
+        dto.setDateinit(dateFormat.parse("2022-12-12"));
+        dto.setDateend(dateFormat.parse("2022-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
         game.setId(3L);
-        dto.setDateinit(dateFormat.parse("2023-12-12"));
-        dto.setDateend(dateFormat.parse("2023-12-15"));
+        dto.setDateinit(dateFormat.parse("2022-12-12"));
+        dto.setDateend(dateFormat.parse("2022-12-15"));
 
         restTemplate.exchange(LOCALHOST + port + SERVICE_PATH, HttpMethod.PUT, new HttpEntity<>(dto), Void.class);
 

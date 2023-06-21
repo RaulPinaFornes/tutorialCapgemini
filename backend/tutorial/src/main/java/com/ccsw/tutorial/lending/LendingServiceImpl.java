@@ -96,6 +96,14 @@ public class LendingServiceImpl implements LendingService {
             return response;
         }
 
+        // Si la fecha es superior a 14 días no debe de registrarse
+        int milToDays = 1000 * 60 * 60 * 24;
+        if ((dto.getDateend().getTime() - dto.getDateinit().getTime()) / milToDays >= 14) {
+            System.out.println((dto.getDateend().getTime() - dto.getDateinit().getTime()) / milToDays);
+            response.setError("La reserva no puedde ser superior a 14 días.");
+            return response;
+        }
+
         Lending lending = new Lending();
         BeanUtils.copyProperties(dto, lending, "id");
 
